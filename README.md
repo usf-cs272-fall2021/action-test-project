@@ -1,2 +1,3 @@
-# action-test-project
-Github Action to run project tests.
+# Github Action: Test Project
+
+Github action to test projects.
