@@ -121,7 +121,7 @@ async function run() {
       core.startGroup('Running debug tests...');
 
       status.debug = await utils.checkExec('mvn', {
-        param: ['-ntp', `-Dtest=${tester}`, '-DexcludedGroups=verify', 'test'],
+        param: ['-ntp', `-Dtest=${tester}`, 'test'],
         title: 'Running debug tests',
         chdir: `${utils.mainDir}/`
       });
