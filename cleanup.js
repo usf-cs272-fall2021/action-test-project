@@ -305,33 +305,6 @@ async function run() {
     utils.showWarning(`Encountered issues saving cache. ${error.message}`);
   }
 
-  // try {
-  //   // -----------------------------------------------
-  //   core.startGroup('Saving Maven cache...');
-  //
-  //   if ('mavenKey' in states) {
-  //     if ('mavenCache' in states && states.mavenKey === states.mavenCache) {
-  //       core.info(`Skipping; cache already exists.`);
-  //     }
-  //     else {
-  //       core.info(`Saving ${states.mavenKey} to cache...`);
-  //       status.mavenCache = await cache.saveCache(['~/.m2'], states.mavenKey);
-  //       core.info(`Saved cache: ${status.mavenCache}`);
-  //     }
-  //   }
-  //   else {
-  //     core.info('Unable to cache; key not found');
-  //   }
-  //
-  //   core.info('');
-  //   core.endGroup();
-  //   // -----------------------------------------------
-  // }
-  // catch (error) {
-  //   core.endGroup();
-  //   utils.showWarning(`Encountered issues saving cache. ${error.message}`);
-  // }
-
   utils.showTitle('Cleanup Logging Phase');
 
   core.startGroup('Logging cleanup status...');
