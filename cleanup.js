@@ -229,43 +229,47 @@ async function run() {
       settings.conclusion = 'success';
 
       annotation.message = states.message;
-      annotation.annotation_level = 'warning'; // notice does not show up in summary
-    }
-    else if ('message' in states) {
-      // verification ran but failed
-      settings.name = 'Verification Failed';
-      settings.conclusion = 'failure';
+      annotation.annotation_level = 'notice';
 
-      annotation.message = states.message;
-      annotation.annotation_level = 'notice'; // used on purpose; failures already in summary
-    }
-    else {
-      // didn't get to verification step
-      settings.name = 'Verification Incomplete';
-      settings.conclusion = 'failure';
+      settings.output = {
+        title: settings.name,
+        summary: `${emoji}&nbsp; ${annotation.message}`,
+        annotations: [annotation]
+      };
 
-      annotation.message = `One or more Project ${states.project} verification steps of ${states.version} failed.`;
-      annotation.annotation_level = 'notice'; // used on purpose; failures already in summary
-    }
+      core.info(JSON.stringify(settings));
 
-    settings.output = {
-      title: settings.name,
-      summary: `${emoji}&nbsp; ${annotation.message}`,
-      annotations: [annotation]
-    };
+      const result = await await octokit.checks.create(settings);
+      status.annotate = result.status;
 
-    core.info(JSON.stringify(settings));
-
-    const result = await await octokit.checks.create(settings);
-    status.annotate = result.status;
-
-    if (status.annotate === 201) {
-      core.info(`Annotation added at: ${result.data.output.annotations_url}`);
+      if (status.annotate === 201) {
+        core.info(`Annotation added at: ${result.data.output.annotations_url}`);
+      }
+      else {
+        core.debug(JSON.stringify(result));
+        throw new Error(`Annotation failed with status ${status.annotate}.`);
+      }
     }
     else {
-      core.debug(JSON.stringify(result));
-      throw new Error(`Annotation failed with status ${status.annotate}.`);
+      // failure states already generate annotations
+      core.info('No annotation necessary.');
     }
+    // else if ('message' in states) {
+    //   // verification ran but failed
+    //   settings.name = 'Verification Failed';
+    //   settings.conclusion = 'failure';
+    //
+    //   annotation.message = states.message;
+    //   annotation.annotation_level = 'notice'; // used on purpose; failures already in summary
+    // }
+    // else {
+    //   // didn't get to verification step
+    //   settings.name = 'Verification Incomplete';
+    //   settings.conclusion = 'failure';
+    //
+    //   annotation.message = `One or more Project ${states.project} verification steps of ${states.version} failed.`;
+    //   annotation.annotation_level = 'notice'; // used on purpose; failures already in summary
+    // }
 
     core.info('');
     core.endGroup();
