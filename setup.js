@@ -172,7 +172,7 @@ async function run() {
     core.startGroup('Checking directory setup...');
 
     await utils.checkExec('ls', {
-      param: ['-Rm', `project-*`],
+      param: ['-Rm', '.'],
       title: 'Listing project directory',
       error: 'Unable to list project directory'
     });
