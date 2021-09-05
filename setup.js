@@ -169,45 +169,6 @@ async function run() {
     }
     // -----------------------------------------------
 
-    // -----------------------------------------------
-    // core.startGroup(`Checking for Maven cache...`);
-    //
-    // core.info('\nHashing pom.xml file...');
-    // let hash = '';
-    // status.sha256 = await exec.exec('sha256sum',
-    //   [`${utils.mainDir}/pom.xml`], {
-    //     ignoreReturnCode: true,
-    //     listeners: {
-    //       stdout: (data) => {hash += data.toString();}
-    //     }
-    //   });
-    //
-    // if (status.sha256 !== 0) {
-    //   throw new Error(`Unable to hash ${utils.mainDir}/pom.xml file (${sha256}).`);
-    // }
-    //
-    // const runner = process.env.RUNNER_OS;
-    // states.mavenKey = `${runner}-m2-${hash.split(' ')[0]}`;
-    //
-    // core.info(`\nAttempting to restore Maven cache...`);
-    // status.mavenCache = await cache.restoreCache(
-    //   ['~/.m2'],         // paths to restore
-    //   states.mavenKey,   // current key
-    //   [`${runner}-m2-`]  // other keys to restore
-    // );
-    //
-    // core.info(`Returned cache: ${status.mavenCache}`);
-    // states.mavenCache = status.mavenCache;
-    //
-    // core.info('');
-    // core.endGroup();
-    //
-    // // check for warnings AFTER ending group
-    // if (!status.mavenCache) {
-    //   utils.showWarning(`Unable to restore cache: ${states.mavenKey}`);
-    // }
-    // -----------------------------------------------
-
     // save states
     utils.saveStates(states);
   }
