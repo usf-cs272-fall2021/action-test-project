@@ -133,6 +133,7 @@ async function run() {
     }
     else {
       utils.showSuccess(states.message);
+      core.notice(states.message);
     }
     // -----------------------------------------------
   }
