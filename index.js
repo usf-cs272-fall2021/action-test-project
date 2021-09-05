@@ -103,7 +103,7 @@ async function run() {
     });
 
     await utils.checkExec('ls', {
-      param: ['-rm', `${utils.mainDir}/`, '*/'],
+      param: ['-rm', `${utils.mainDir}/*/`],
       title: 'Listing main directory',
       error: 'Unable to list main directory',
     });
