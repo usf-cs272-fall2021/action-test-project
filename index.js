@@ -90,12 +90,6 @@ async function run() {
       error: 'Unable to list test class directory',
     });
 
-    await utils.checkExec('ls', {
-      param: ['-rm', `${utils.mainDir}/*/`],
-      title: 'Listing main directory',
-      error: 'Unable to list main directory',
-    });
-
     core.info('');
     core.endGroup();
     // -----------------------------------------------

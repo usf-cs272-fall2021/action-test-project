@@ -169,6 +169,17 @@ async function run() {
     }
     // -----------------------------------------------
 
+    core.startGroup('Checking directory setup...');
+
+    await utils.checkExec('ls', {
+      param: ['-Rm', `project-*`],
+      title: 'Listing project directory',
+      error: 'Unable to list project directory'
+    });
+
+    core.info('');
+    core.endGroup();
+
     // save states
     utils.saveStates(states);
   }
