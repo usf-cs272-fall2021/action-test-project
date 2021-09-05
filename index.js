@@ -45,18 +45,6 @@ async function run() {
     // -----------------------------------------------
 
     // -----------------------------------------------
-    core.startGroup('Updating Maven dependencies...');
-
-    status.maven = await utils.checkExec('mvn', {
-      param: ['-f', `${utils.mainDir}/pom.xml`, '-ntp', 'dependency:go-offline'],
-      error: 'Updating returned non-zero exit code',
-    });
-
-    core.info('');
-    core.endGroup();
-    // -----------------------------------------------
-
-    // -----------------------------------------------
     core.startGroup('Compiling project main code...');
 
     status.mainWarnings = await utils.checkExec('mvn', {
